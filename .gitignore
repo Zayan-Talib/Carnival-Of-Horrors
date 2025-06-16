@@ -1,0 +1,8 @@
+persistent
+*.rpyc
+*.log
+*.bak
+*.tmp
+*.pyc
+.DS_Store
+game/saves/
