@@ -4,5 +4,6 @@ persistent
 *.bak
 *.tmp
 *.pyc
+*.psd
 .DS_Store
 game/saves/
