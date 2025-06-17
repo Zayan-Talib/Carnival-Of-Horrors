@@ -7,3 +7,4 @@ persistent
 *.psd
 .DS_Store
 game/saves/
+.vscode/

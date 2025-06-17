@@ -1,30 +1,55 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 228, in script
-    with Fade(1.5)           # Transition
-TypeError: Fade() missing 2 required positional arguments: 'hold_time' and 'in_time'
+While processing the padding property of anonymous style:
+  File "renpy/common/00gamemenu.rpy", line 174, in script
+    $ ui.interact()
+  File "renpy/common/00gamemenu.rpy", line 174, in <module>
+    $ ui.interact()
+IndexError: tuple index out of range
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 228, in script
-    with Fade(1.5)           # Transition
-  File "H:\Programs\RenPy\renpy\ast.py", line 1374, in execute
-    renpy.exports.with_statement(trans, paired=paired)
-  File "H:\Programs\RenPy\renpy\exports\statementexports.py", line 257, in with_statement
-    return renpy.game.interface.do_with(trans, paired, clear=clear)
-  File "H:\Programs\RenPy\renpy\display\core.py", line 1581, in do_with
-    return self.interact(trans_pause=True,
+  File "renpy/common/00gamemenu.rpy", line 174, in script
+    $ ui.interact()
+  File "H:\Programs\RenPy\renpy\ast.py", line 834, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "H:\Programs\RenPy\renpy\python.py", line 1187, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/00gamemenu.rpy", line 174, in <module>
+    $ ui.interact()
+  File "H:\Programs\RenPy\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "H:\Programs\RenPy\renpy\display\core.py", line 2218, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "H:\Programs\RenPy\renpy\display\core.py", line 2669, in interact_core
-    trans = instantiate_transition(None, old_root, layers_root)
-  File "H:\Programs\RenPy\renpy\display\core.py", line 2578, in instantiate_transition
-    trans = self.ongoing_transition[layer](
-TypeError: Fade() missing 2 required positional arguments: 'hold_time' and 'in_time'
+  File "H:\Programs\RenPy\renpy\display\core.py", line 2748, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "H:\Programs\RenPy\renpy\display\screen.py", line 485, in visit_all
+    self.child.visit_all(callback, seen=None)
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "H:\Programs\RenPy\renpy\display\displayable.py", line 424, in visit_all
+    for d in self.visit():
+  File "H:\Programs\RenPy\renpy\display\layout.py", line 1376, in visit
+    self.style._visit_window(rv.append)
+  File "style.pyx", line 541, in renpy.style.StyleCore._visit_window
+  File "style.pyx", line 528, in renpy.style.StyleCore._get_unoffset
+  File "style.pyx", line 493, in renpy.style.StyleCore._get
+  File "style.pyx", line 717, in renpy.style.build_style
+  File "style.pyx", line 714, in renpy.style.build_style
+  File "gen3-static/style_functions.pyx", line 1581, in style_functions.padding_property
+  File "include/style_common.pxi", line 33, in style_functions.index_1
+IndexError: tuple index out of range
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 Escape from the Carnival of Horrors 1.0
-Tue Jun 17 02:37:38 2025
+Tue Jun 17 19:51:58 2025

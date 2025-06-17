@@ -90,6 +90,34 @@ image you worried:
     "you/you worried.png"
     correctsizeyou
 
+image you scared:
+    "you/you scared.png"
+    correctsizeyou
+
+image you startled:
+    "you/you startled.png"
+    correctsizeyou
+
+image you think:
+    "you/you think4.png"
+    correctsizeyou
+
+image you believe:
+    "you/you believe.png"
+    correctsizeyou
+
+image you resolve:
+    "you/you resolve.png"
+    correctsizeyou
+
+image you stressed:
+    "you/you stressed.png"
+    correctsizeyou
+
+image you paralyzed:
+    "you/you paralyzed.png"
+    correctsizeyou
+
 # Patty
 
 image patty argue:
@@ -142,7 +170,27 @@ image patty surprised:
     correctsizepatty
     midleft
 
+image patty camera:
+    "patty/patty camera.png"
+    correctsizepatty
+    midleft
+
+image patty think:
+    "patty/patty think.png"
+    correctsizepatty
+    midleft
+
+image patty smile:
+    "patty/patty smile.png"
+    correctsizepatty
+    midleft
+
 # Brad
+
+image brad normal:
+    "brad/brad normal.png"
+    correctsizebrad
+    midright 
 
 image brad argue:
     "brad/brad argue.png"
@@ -189,6 +237,50 @@ image brad think speak:
     correctsizebrad
     midright 
 
+image brad scared:
+    "brad/brad scared.png"
+    correctsizebrad
+    midright
+
+image brad reason:
+    "brad/brad reason.png"
+    correctsizebrad
+    midright
+
+image brad think:
+    "brad/brad think.png"
+    correctsizebrad
+    midright
+
+image brad doom:
+    "brad/brad doom.png"
+    correctsizebrad
+    midright
+
+# Other Characters
+
+transform correctsizeBA1:
+    zoom 1.7
+    yoffset 105
+
+transform correctsizeBA2:
+    zoom 1.1
+    yoffset 100
+
+image big al:
+    "others/bigal.png"
+    correctsizeBA2
+    midright
+
+image map:
+    "map.png"
+    xoffset 200
+    yoffset -200
+
+image bg gameover:
+    "bg gameover.png"
+    zoom 1.2
+
 # Other Effects
 
 image bg entranceflicker:
@@ -197,22 +289,30 @@ image bg entranceflicker:
     "bg darkentrance.png"
     pause (0.2)
     repeat
+
+transform screen_shake:
+    linear 0.05 xoffset -15
+    linear 0.05 xoffset 15
+    repeat 3
     
 # Variables are used to make it less tedious to recall who is saying which line.
 # Make sure character name colors are spelled "color" and not "colour"
 
-define y = Character ("You", who_color = "#584747")
-define p = Character ("Patty", who_color = "#59862e")
-define b = Character ("Brad", who_color = "#503d19")
+define y = Character ("You", who_color = "#b08f7f")
+define p = Character ("Patty", who_color = "#c981c5ff")
+define b = Character ("Brad", who_color = "#725621")
 
-define mys = Character ("???")
-define BA = Character ("Big Al", who_color = "#ffffff")
+define mys = Character ("???", who_color = "#999999")
+define mys2 = Character ("???", who_color = "#ffffff")
+define BA = Character ("Big Al", who_color = "#e44441")
 
 ####################################################################################################
 
 # Game starts here
 
 label start:
+
+    scene black with fade
 
     "Player Beware! You choose the scare."
     "Choices do matter, and you will need to make the right ones to survive. That is, if you can."
@@ -471,14 +571,27 @@ label tourstart:
 
     "You can't believe what you see!"
 
+    scene bg freakshow with dissolve
+
     "You're staring at a sign that reads: WORLD's FREAKIEST FREAK SHOW!"
     "The three of you gape at the pictures."
     "There's the Three-Headed Man with the ugliest collection of faces you've ever seen."
     "And the Snake Lady - a young blond girl with a beautiful face and the body of a slithering snake."
 
     y "This is, uh - uh -"
-    
+
+    scene you cg face with pixellate
+
+    pause(0.5)
+
+    scene bg midway
+    show you startled at screen_shake
+    show bg midway at screen_shake
+
     "A large hand comes down on your shoulder. Hard."
+
+    show big al with dissolve
+
     "You slowly turn and gaze up at a huge man with shoulders wider than a refrigerator. He has coal - black eyes and a thick mustache to match."
     "He looks strong enough - and mean enough - to pitch you over the fence with one hand."
 
@@ -494,12 +607,20 @@ label tourstart:
 
     mys "You're not going anywhere!"
 
+    show brad reason at midleft, Transform(yoffset=85) 
+    with dissolve
+
     b "Wh-what do you mean?"
 
     mys "I just had an idea. A great idea."
     mys "I just want you kids to stay and try out the rides before the grand opening tomorrow."
 
+    show patty camera at Transform(yoffset=80, xoffset=180) with dissolve
+
     p "Cool!"
+
+    show you nervous with dissolve
+    show brad sweat with dissolve
 
     y "Are you sure it's all right with the owner?"
 
@@ -509,18 +630,39 @@ label tourstart:
 
     BA "Study them carefully. If you have any questions, ask them now."
 
+    show you think with dissolve
+    show brad think with dissolve
+    show patty think with dissolve
+
     "Your eyes fall upon the map. You have a question. But when you gaze up," 
 
-    # hide BA with dissolve
+    hide big al with fade
+    show you surprised
 
     "Big Al is gone. He's vanished!"
+
+    show patty smile at Transform(xoffset=600)
+    show brad think speak at Transform(xoffset=-300)
+    show you normal
+    with dissolve
 
     p "A whole carnival to ourselves!"
     p "Where should we start?"
 
+    hide patty
+    hide brad
+    show you think
+    with dissolve
+    show map 
+    with dissolve
+
     "You stare down at your map once again. You notice that the carnival is split in half."
     "On one side are the rides. Tons of them. On the other side is the midway, packed with games of chance and the Freak Show."
   
+    hide map
+    hide you
+    with dissolve
+
     menu:
   
         "What will you try first?"
@@ -533,12 +675,312 @@ label tourstart:
 
 label startrides:
 
-    return
+    show you resolve
+    with dissolve
+
+    y "Let's go on the rides first!"
+    y "That roller coaster looked awesome!"
+
+    show patty normal
+    show brad normal
+    with dissolve
+
+    p "Okay."
+    p "Over this way!"
+
+    scene bg coaster with fade
+
+    "You can only stare in amazement. These are the most fantastic rides you've ever seen."
+    "The towering roller coaster … the soaring speedboats … the twisty slides! Every one is in motion."
+    "Whizzing, whirling, doing loop-the-loops."
+    "And they're all empty! No riders. No people in line!"
+
+    show you normal
+    show patty smile
+    show brad normal
+    with dissolve
+
+    p "Cool! We have the whole place to ourselves."
+
+    show brad doom
+    with dissolve
+
+    "Brad's face turns a little green as his gaze swings from the Supersonic Space Coaster to the Doom Slide."
+    b "Do you think they have rides that don't go upside down?"
+
+    show patty argue
+    with dissolve
+
+    p "Come on! Let's check out the coaster!"
+
+    hide patty
+    hide brad
+    with dissolve
+
+    "You stop and crane your neck to gaze up at the coaster's first hill. And you gasp!"
+
+    show you surprised
+    with dissolve
+
+    "The tracks stretch up so high that they seem to touch the clouds." 
+    "Your gaze follows one of the cars speeding around a sharp curve. It looks like the space shuttle."
+    "You notice that it has a safety harness that locks over your body — you've seen those before."
+    "They keep you in when the ride turns upside down."
+    "You didn't want to admit it before, but, like Brad, riding upside down is not your favorite thing."
+    "Still, the coaster does look amazing. One part enters a tunnel..."
+    "... and you can see that the cars go fast."
+    "Really Fast!"
+
+    "You're just about to walk through the Space Coaster gate when you hear spooky organ music coming from behind you."
+    "You turn around."
+
+    scene bg farhouse with fade
+
+    "Looming in the distance is a dark and creepy haunted house."
+    "You gaze down at your map. It's called the House of Horrors."
+    "Hmm."
+    "You love haunted houses. And this one really does look scary."
+    "Now you're not sure what to do. You won't have time for everything. The coaster or the haunted house?"
+
+    menu:
+
+        "Decide now."
+
+        "Join Patty and Brad on the Space Coaster":
+            jump spacecoaster
+
+        "Go to the House of Horrors alone":
+            jump horrorhouse
 
 label startmidway:
 
+    show you resolve
+    with dissolve
+
+    y "Let's head for the midway and play some games!"
+
+
+
     return
 
+label spacecoaster:
 
+    scene bg coaster with fade
 
+    y "Hey, wait up!"
 
+    "They both ignore you and charge straight ahead."
+
+    scene bg shuttlegate with fade
+
+    "You follow them into a narrow tunnel that leads to the boarding area." 
+    "You gaze down at the floor. Black rubber. It makes you walk with a strange bounce."
+    "Every few feet there is a round porthole window." 
+    "When you glance out one, you see astronauts planting flags on the moon."
+    "You peer out another."
+    "Now they're seated in their capsule."
+
+    y "This is amazing. The figures look real. {i}Totally real.{/i}"
+
+    scene you cg climb with fade
+
+    "After a long climb, you and Patty and Brad finally arrive at the loading area."
+    
+    scene bg shuttleload with fade
+    show you normal with dissolve
+    show patty normal with dissolve
+    show brad normal with dissolve
+    
+    "A sleek bullet-shaped capsule {i}whooshes{/i} up and stops right beside you. It has three sections."
+    
+    hide brad with dissolve
+    
+    "Brad climbs defiantly into the last section."
+
+    hide you with dissolve
+
+    "You leap into the front."
+
+    hide patty with dissolve
+
+    "Patty's left with the middle section."
+
+    show bg shuttleload at screen_shake
+
+    "And suddenly you're trapped!"
+
+    "Steel bars plunge down from above and drop across your lap and chest, pinning you in place."
+    "You can't move at all. Even your head is held by superstrong headphones that clamp over your ears."
+    "A voice comes through them."
+
+    mys "Five, four, three, two, one, BLAST OFF!"
+
+    show bg shuttleload at screen_shake
+
+    "You hear a huge bang."
+    "Smoke and fireworks fill the air as your car start up the first big hill."
+
+    scene bg skyshuttle with fade
+
+    "Your head presses back against the seat as you climb higher and higher. That first hill is endles, but the view is awesome."
+    "From the top, you can see the midway, the haunted house, and a shadowy clamp. You can't believe how big the carnival is!"
+
+    p "Neat!"
+    p "There's AHHHH...."
+
+    "Whatever she was going to say turns into a wild scream as the rocket plunges down the other side of the hill. The wind whips at your face." 
+    "You are pressed back so hard, you feel like a pancake. Everything passes in a fantastic blur."
+
+    "As your car shoots up the top of the next hill, you're laughing and screaming at the same time."
+    "This is great! But then you make a big mistake."
+
+    scene black with fade
+
+    "You close your eyes."
+
+    pause (0.5)
+
+    scene bg fastshuttle with fade
+
+    "When you open them, you car lunges forward with a burst of speed - and you loop the loop."
+    "Your mouth drops open to scream, but no sound comes out."
+
+    "Now your car starts to plunge downward. Like an elevator out of control."
+    "Your heart pounds in your chest. This is the fastest and best roller coaster you've ever been on!"
+    "As you near the bottom, you slow down. You begin to catch your breath. And then you see what's up ahead."
+
+    scene bg tunnelstart with fade
+
+    "A huge black hole - a tunnel!"
+    "As you shoot towards the open mouth of the tunnel, you begin to scream again."
+    "The door of the tunnel is about to close!"
+
+    scene black with fade
+    
+    "Snap! The door comes crashing down - behind your car. You breathe out a long sigh."
+    
+    scene bg darkrocketcrash with fade
+
+    "But now you're in a tunnel so dark that you can't see a thing."
+    "Scary! But not nearly as scary as what happens next."
+
+    show bg darkrocketcrash at screen_shake
+
+    "The ride stops. Dead."
+    "You are sitting in the dark."
+    "Nothing is moving."
+    
+    y "Patty! Brad!"
+
+    "Silence."
+    "Why don't they answer? They have to be there."
+    "You try to twist around. But you're locked in your harness and clamped in your headrest."
+    
+    scene bg rocketcrash with fade
+    
+    "Blinking in the dim light, your eyes dart to the left. Then to the right."
+
+    "You spot dozens of empty space rockets lining the walls."
+    "They seem to come in sections, making longer and shorter space rockets."
+    "Your mind starts working feverishly. Did your section detach from Patty and Brad's section?"
+
+    "Suddenly, the silence is shattered. Your seat lock grinds open, and you are released from your harness."
+
+label waitchoice:
+
+    scene bg rocketcrash
+    show you worried with fade
+
+    "You quickly spin around. Patty's and Brad's cars have dissapeared!"
+    "If this is all part of the ride, maybe you should hop out."
+    "But if the ride is broken, maybe you should wait for help."
+
+    menu:
+
+        "What do you do?"
+
+        "Wait for help to come":
+            jump waithelp
+
+        "Hop out of the car":
+            jump hopout
+
+    return
+
+label horrorhouse:
+
+    return
+
+label waithelp:
+
+    "You decide to wait. Someone should be here soon, you think."
+
+    pause(2)
+
+    show you stressed with dissolve
+
+    "But after waiting in the space shuttle for at least fifteen minutes, you're not so sure."
+    "No one has shown up to rescue you."
+
+    "A chill runs down your back. You feel as if a thousand pairs of eyes are watching you from the shadows."
+    "Now that you're accustomed to the darkness, you can see dozens of tracks leading in and out of the tunnel."
+
+    show you scared with dissolve
+
+    "And then you hear a rustling sound. You freeze. You listen hard. Could it be rats..."
+    "...or something worse?"
+
+    "You draw up your knees and wrap around them tightly. Then you hear a hissing sound - and you smell something odd."
+    "It's kind of a sweet smell - like heavy perfume."
+    "You hold your nose because the smell is making you feel strange. Dizzy. Sick."
+    
+    pause(2)
+
+    show you paralyzed with dissolve
+
+    "It seems as if hours have passed. Or maybe it's only minutes."
+    "You try to unclasp your hands. But they won't budge. It's as if your arms are glued around your knees."
+    "You try to move something. Anything."
+    "But you can't blink an eyelid. Your body is paralyzed. You can't even scream."
+
+    "A door opens and two men dressed in overalls and wearing gask marks amble in."
+    "Finally. They're here to rescue you!"
+
+    mys "Looks like the perfume worked."
+    mys2 "Yeah. And just in time. We needed a new dummy for the Real-Life Space Display."
+
+    "They pick up your rigid body and carry you out."
+    "No wonder those astronauts in the silver tunnel looked so real!"
+    
+    scene black with fade
+
+    "Sorry. You can't scream. You can't escape."
+    "Next time, you promise yourself, you'll stick with the baby rides. But then you remember - "
+    "there isn't going to be a next time ... because this is ..."
+    
+    scene bg gameover with pixellate
+
+    window hide
+
+    pause (2)
+
+    $ gameover_choices = [
+        ("Back to Previous Choice", Jump("waitchoice")),
+        ("Start Over", Jump("start")),
+        ("Main Menu", MainMenu())
+    ]
+
+    call screen game_over_menu (gameover_choices)
+
+label hopout:
+
+    "Your pulse pounds in your ears as you carefully lift yourself out of the car."
+    "The tunnel is dark and musty and really creepy. Anything could be lurking in the shadows."
+
+    "This must be part of the ride, you reason. And the more you think about it, the more convinced you are."
+    "You're scared. But you have to admit, this is pretty cool."
+
+    "In the distance, you spot several red lights that seem to lead to other dimly lit tunnels."
+    "You cautiously head toward one of them."
+
+    return

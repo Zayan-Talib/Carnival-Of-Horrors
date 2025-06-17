@@ -258,6 +258,30 @@ screen quick_menu():
             textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
 
+transform fadein:
+    alpha 0.0
+    linear 0.5 alpha 1.0
+
+screen game_over_menu(choices):
+    tag menu
+
+    frame:
+        at fadein
+        xalign 0.5
+        yalign 0.8
+        background None
+        padding (0, 0)
+
+        vbox:
+            spacing 15
+            xalign 0.5
+
+            for caption, action in choices:
+                textbutton caption action action:
+                    xalign 0.5  # Center the button
+                    xsize 500   # Fix width
+                    text_xalign 0.5  # Center text inside the button
+
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
 ## the player has not explicitly hidden the interface.

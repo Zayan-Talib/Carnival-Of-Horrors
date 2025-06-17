@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 228: Line is indented, but the preceding window hide statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    show text "So be it." at truecenter with dissolve
-    ^
+File "game/screens.rpy", line 274: textbutton expects a non-empty block.
+    textbutton caption action action:
+                                     ^
 
 Ren'Py Version: Ren'Py 8.3.7.25031702
-Tue Jun 17 02:45:42 2025
+Tue Jun 17 19:51:14 2025
