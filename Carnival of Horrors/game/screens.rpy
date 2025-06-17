@@ -359,6 +359,10 @@ screen main_menu():
     frame:
         style "main_menu_frame"
 
+    add "images/pattyicon.png" xpos 45 ypos 110 zoom 0.8
+    add "images/youicon.png" xpos 110 ypos 100 zoom 0.96
+    add "images/bradicon.png" xpos 180 ypos 100
+
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
     use navigation

@@ -214,6 +214,21 @@ define BA = Character ("Big Al", who_color = "#ffffff")
 
 label start:
 
+    "Player Beware! You choose the scare."
+    "Choices do matter, and you will need to make the right ones to survive. That is, if you can."
+
+    menu:
+
+        "Are you sure?"
+
+        "Yes": 
+            pass
+
+    window hide
+    show text "So be it." at truecenter with dissolve
+    $ renpy.pause(1.0, hard=True)
+    window show
+
     # Page 1
 
     scene bg playground       # This is how to call scenes
@@ -221,11 +236,10 @@ label start:
 
     # Calling a character sprite
     show patty argue at center with dissolve
-       
 
     p "What do {i}you{/i} want to do?"    # This is how you italicize text in Ren'Py
 
-    hide patty argue
+    hide patty argue with dissolve
     
     # Internal monologues can be written like this.
 
@@ -318,11 +332,11 @@ label start:
     
         "What are you going to do?"
 
-        "Decide to go home.":
-            jump gohome               # Illusion of choice
-
         "Climb the fence to get inside.":
             jump climbfence
+
+        "Decide to go home.":
+            jump gohome               # Illusion of choice
 
 label gohome:
 
@@ -363,6 +377,8 @@ label climbfence:
 
     "Then the lights start to flicker on in every corner of the field - the rides start to move."
     "It's as if the whole place is magically coming to life."
+
+    pause (2)
 
     scene bg entrance
 
@@ -438,6 +454,8 @@ label tourstart:
     show brad speak with dissolve
     
     y "Hey! Where are all those dinky wooden booths from last year?"
+
+    scene bg midway with dissolve
 
     "They're gone. And in their place are giant video games and huge spinning wheels with hundreds of blinking colored lights!"
     "You gawk at the amazing games of chance."

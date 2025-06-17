@@ -12,13 +12,13 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Carnival of Horrors")
+define config.name = _("Escape from the Carnival of Horrors")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
 ## this to False to hide the title.
 
-define gui.show_name = False
+define gui.show_name = True
 
 
 ## The version of the game.
@@ -29,8 +29,8 @@ define config.version = "1.0"
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
-define gui.about = _p("""Created by Draco.
-Visual novel about the book, Escape from the Carnival of Horrors
+define gui.about = _p("""By Zayan Talib.
+Visual novel based on the book: Escape from the Carnival of Horrors
 from the Give Yourself Goosebumps series by author R.L. Stine.
 """)
 
