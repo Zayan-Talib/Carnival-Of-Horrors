@@ -6,5 +6,5 @@ persistent
 *.pyc
 *.psd
 .DS_Store
-game/saves/
+Carnival of Horrors/game/saves/
 .vscode/
