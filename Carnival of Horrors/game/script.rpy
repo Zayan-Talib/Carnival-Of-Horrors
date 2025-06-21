@@ -8,12 +8,16 @@
 
 # Transformations : Sprite Position
 
+transform center:
+    xalign 0.5
+    yalign 1.0
+
 transform closeleft:
     xalign 0.38
     yalign 1.0
 
 transform closeright:
-    align 0.62
+    xalign 0.62
     yalign 1.0
 
 transform slightleft:
@@ -116,6 +120,10 @@ image you stressed:
 
 image you paralyzed:
     "you/you paralyzed.png"
+    correctsizeyou
+
+image you shout:
+    "you/you shout.png"
     correctsizeyou
 
 # Patty
@@ -257,7 +265,28 @@ image brad doom:
     correctsizebrad
     midright
 
-# Other Characters
+# Other Effects
+
+image bg entranceflicker:
+    "bg entrance.png"
+    pause (0.2)
+    "bg darkentrance.png"
+    pause (0.2)
+    repeat
+
+transform screen_shake:
+    linear 0.05 xoffset -15
+    linear 0.05 xoffset 15
+    repeat 3
+
+transform shakeloop:
+    block:
+        linear 0.05 xoffset -10 yoffset 5
+        linear 0.05 xoffset 10 yoffset -5
+        linear 0.05 xoffset -7 yoffset 3
+        linear 0.05 xoffset 7 yoffset -3
+        linear 0.05 xoffset 0 yoffset 0
+        repeat
 
 transform correctsizeBA1:
     zoom 1.7
@@ -266,6 +295,28 @@ transform correctsizeBA1:
 transform correctsizeBA2:
     zoom 1.1
     yoffset 100
+
+transform monstersize:
+    zoom 1.3
+    yoffset 100
+
+image bg doomfaces:
+    "bg doomscary1.png"
+    0.1
+    "bg doomscary2.png"
+    0.1
+    "bg doomscary3.png"
+    0.1
+    repeat
+
+image bg chuteblink:
+    "black" with dissolve
+    0.5
+    "bg reunited.png" with dissolve
+    0.5
+    repeat 3
+
+# Other Characters
 
 image big al:
     "others/bigal.png"
@@ -281,20 +332,35 @@ image bg gameover:
     "bg gameover.png"
     zoom 1.2
 
-# Other Effects
+image hazmat1:
+    "others/hazmat.png"
+    zoom 1.3
+    yoffset 150
+    extremeright
 
-image bg entranceflicker:
-    "bg entrance.png"
-    pause (0.2)
-    "bg darkentrance.png"
-    pause (0.2)
-    repeat
+image hazmat2:
+    "others/hazmat.png"
+    zoom 1.3
+    yoffset 150
+    extremeleft
 
-transform screen_shake:
-    linear 0.05 xoffset -15
-    linear 0.05 xoffset 15
-    repeat 3
-    
+image dwarf:
+    "others/dwarf.png"
+    zoom 0.8
+    yoffset 100
+
+image darkmonster:
+    "others/darkmonster.png"
+    monstersize
+
+image monster:
+    "others/monster.png"
+    monstersize
+
+image monstershaded:
+    "others/monstershaded.png"
+    monstersize
+
 # Variables are used to make it less tedious to recall who is saying which line.
 # Make sure character name colors are spelled "color" and not "colour"
 
@@ -305,6 +371,7 @@ define b = Character ("Brad", who_color = "#725621")
 define mys = Character ("???", who_color = "#999999")
 define mys2 = Character ("???", who_color = "#ffffff")
 define BA = Character ("Big Al", who_color = "#e44441")
+define dwa = Character ("The Dwarf", who_color = "#ff0000")
 
 ####################################################################################################
 
@@ -943,11 +1010,19 @@ label waithelp:
     "You try to move something. Anything."
     "But you can't blink an eyelid. Your body is paralyzed. You can't even scream."
 
+    show hazmat1 with dissolve
+    show hazmat2 with dissolve
+
     "A door opens and two men dressed in overalls and wearing gask marks amble in."
     "Finally. They're here to rescue you!"
 
     mys "Looks like the perfume worked."
     mys2 "Yeah. And just in time. We needed a new dummy for the Real-Life Space Display."
+
+    hide you
+    hide hazmat1
+    hide hazmat2
+    with dissolve
 
     "They pick up your rigid body and carry you out."
     "No wonder those astronauts in the silver tunnel looked so real!"
@@ -981,6 +1056,460 @@ label hopout:
     "You're scared. But you have to admit, this is pretty cool."
 
     "In the distance, you spot several red lights that seem to lead to other dimly lit tunnels."
-    "You cautiously head toward one of them."
+
+    scene bg dwarftunnel with fade
+    show you worried with dissolve
+
+    "You cautiously head toward one of them. Overhead something dark and slimy drips."
+    "Splattering on the top of your head. Stinging your forehead."
+
+    "As you desperately try to wipe the burning slime away, something grabs you by the knees!"
+
+    show bg dwarftunnel at screen_shake
+    show you startled at midleft, screen_shake
+    with dissolve
+    show dwarf at midright
+    with dissolve
+
+    "Aaaah! You look down. A pair of red-rimmed eyes meet yours. It's a dwarf with scraggly red hair and a toothless smile."
+
+    dwa "Want me to lead you out of here, kid?"
+    
+    "You're about to follow the dwarf, but then you stop."
+    "Is he part of the ride? He looks really evil."
+
+    menu:
+
+        "What do you do?"
+
+        "Follow the dwarf":
+            jump dwarffollow
+
+        "Decide not to follow the dwarf":
+            jump dwarfstay
+
+    return
+
+label dwarffollow:
+
+    show you worried with dissolve
+
+    y "Okay, get me out of here."
+    y "Did you help my friends, too?"
+
+    "The dwarf does not answer."
+
+    hide dwarf with dissolve
+    show you startled with dissolve
+
+    y "Wait!"
+
+    scene black with fade
+
+    "He sprints off and you have to race to keep up with him."
+    "Through a confusing maze of twisting tunnels. You're sure glad you have a guide."
+    "The dwarf suddenly stops."
+
+    show bg twodoors with fade
+    show dwarf with dissolve
+
+    dwa "That way."
+
+    "He points straight ahead."
+
+    show dwarf at screen_shake
+    hide dwarf with dissolve
+
+    "Before you can blink, he vanishes in a puff of smoke!"
+    "You're left standing in front of two doors. One red. One blue."
+    "The red one has a sign that reads: {i}DANGER{/i}"
+    "The blue one has a sign that reads: {i}BIG DANGER{/i}"
+
+    jump doorchoice
+
+label dwarfstay:
+
+    "You glance once more at the dwarf."
+    "He lets out an evil cackle."
+    "That's it - there's no way you can trust him. Besides, you can hear music up ahead."
+    "You're sure you must be near an exit."
+
+    show you worried with dissolve
+
+    y "No, thanks. I don't need any help."
+    dwa "Oh, yes, you do."
+
+    show dwarf at screen_shake
+    hide dwarf with dissolve
+
+    "But then he sprints off."
+
+    pause(2)
+
+    scene black with fade
+
+    "You walk into the direction of the music. But after five minutes, you realize that you're not getting anywhere."
+    "Maybe you should have followed the dwarf."
+
+    show patty camera
+    show brad normal
+    with pixellate
+
+    "You start to think about Patty and Brad. Are they okay? You wonder."
+
+    "Just when you think you'll be wandering these tunnels for the rest of your life, the passageway ends!"
+
+    show bg twodoors with fade
+
+    "Now you're facing two doors - one red and one blue. Which one should you try?"
+    "You might as well flip a coin!"
+
+    scene black with pixellate
+
+    "Get a coin. Flip it and check whether it comes up heads or tails."
+
+    menu:
+
+        "Test your odds."
+
+        "Heads":
+            jump bluedoor
+
+        "Tails":
+            jump reddoor    
+
+label doorchoice:
+
+    show bg twodoors with fade
+
+    menu:
+
+        "Which one do you try?"
+
+        "Try the Red Door":
+            jump reddoor
+
+        "Try the Blue Door":
+            jump bluedoor
+
+label reddoor:
+
+    show bg twodoors with fade
+
+    "You push open the red door." 
+
+    show bg redtunnel with fade
+
+    "Another tunnel lies beyond it. You follow its twists and turns, and you realize that you're sloshing through cold muddy water."
+    "It grows deeper and chillier as you go."
+
+    show you worried with dissolve
+    
+    "With a cold shudder, you decide to head back - until you hear a slurping noise behind you."
+    "Whirling around, you watch in horrible fascination as giant earthworms crawl out of the mud. Gross!"
+
+    "No way you're heading back there. You clench your teeth and slog onward."
+    "Up ahead, you see a dim green light. Great! An exit."
+
+    "As you reach the end of the tunnel, you hear a low growl behind you."
+    "At first you try to pretend it's your imagination. But there's no mistaking the sound of thudding footsteps."
+    "Getting closer. And closer."
+
+    show you scared with dissolve
+
+    "And now it's breathing down your neck!"
+    "You're too scared to turn around. And too scared not to."
+    
+    show you scared at midleft 
+    with dissolve
+    show darkmonster at right
+    with dissolve
+
+    "Risking a glance over your shoulder, you see a large, dark shape behind you. It's a big man."
+    "No. You squint hard. It's dark and hairy with muddy leaves and green vines trailing from its body."
+    "It's some sort of swampy monster!"
+
+    "You run as fast as you can. Your chest is on fire."
+    "The swamp monster is gaining on you."
+    
+    "You know you should keep running, but your heart feels as if it's about to explode. You have to stop."
+    "You turn and stare right into the swamp monster's bloody eyes."
+
+    show you nervous with dissolve
+
+    y "Neat costume."
+
+    show you scared at screen_shake
+    with dissolve
+
+    hide darkmonster
+    show monstershaded at right
+    with dissolve
+
+    "Good try - but the swampy monster isn't wearing a costume. He's real and this, unfortunately, is really..."
+
+    scene bg gameover with pixellate
+
+    window hide
+
+    pause (2)
+
+    $ gameover_choices = [
+        ("Back to Previous Choice", Jump("doorchoice")),
+        ("Start Over", Jump("start")),
+        ("Main Menu", MainMenu())
+    ]
+
+    call screen game_over_menu (gameover_choices)
+
+label bluedoor:
+
+    show bg twodoors with fade
+
+    "You open the blue door and peer through."
+
+    show bg bluetunnel with fade
+
+    "You're staring down a long dark passageway."
+    "At least you think it's long. It's difficult to tell."
+
+    "It's pitch-black. You don't know what to do."
+    "Maybe I should have picked the other door. I'm getting out of here."
+
+    show bg bluetunnel at screen_shake
+
+    "But the blue door has locked behind you!"
+    "Now you're sure you made the wrong choice. But there's nowehere to go but forward."
+
+    "Your knees begin to tremble as you inch your way down the dark hallway."
+
+    show bg mountainenter with fade
+
+    "The passage ends in a bright burst of light. And in front of you, a tall purple mountain rises hundreds of feet into the air."
+
+    "You breathe out a long sigh of relief. You're out of the dark!"
+    "You study the mountain. It looks so real!"
+    "But cut into its side, you spot a doorway. Above it a brightly painted sign reads:"
+    "DOOM SLIDE. WILL YOU BE THE ONE TO SLIDE FOREVER?"
+
+    show bg doomramp with fade
+
+    "You open the door and climb a steep ramp that curves around and around."
+    "It's cold and dark inside."
+
+    "Halfway up the ramp, you stop. There's another sign:"
+    "WARNING! - YOU MAY BE THE ONE TO SLIDE TO YOUR DOOM!"
+    "You continue up the ramp."
+
+    show bg doomslides with fade
+
+    "You finally make it to the top, and find yourself standing on a wide, dimly lit platform."
+    "A row of long, curving slides stretches out before you. The slides are numbered from one to seven."
+
+    "You think hard. The Doom Slide. You know you've heard about it before. But where? Where was it?"
+    "And then you remember! It was in a GOOSEBUMPS book you read! {i}One Day at HorrorLand.{/i}"
+
+    "Now you know you're in big trouble. Because you remember all about the Doom Slide from the book."
+
+    jump doomslidechoice
+
+label doomslidechoice:
+
+    show bg doomslides with fade
+
+    "You remember that if you pick the wrong slide, you'll spend the rest of your life sliding and sliding - forever!"
+    "Which number is the Doom Slide? Which One?"
+
+    menu:
+
+        "There are 7 slides in front of you. Which one isn't the Doom Slide?"
+
+        "1":
+            jump doomslide
+        "2":
+            jump doomlaugh
+        "3":
+            jump doomdark
+        "4":
+            jump doomslide
+        "5":
+            jump doomlaugh
+        "6":
+            jump doomdark
+        "7":
+            jump doomslide
+
+label doomslide:
+
+    show bg doomslide with fade
+
+    "You slowly lower yourself onto the slide."
+
+    show bg doomspeed at shakeloop with dissolve
+
+    "You start to stretch out your legs when the bottom tilts underneath you and throws you forward."
+    "You're sliding! Fast!"
+
+    "The surface must be made of some kind of special material because you're zooming down at top speed."
+    
+    show bg doomdark with dissolve
+    
+    "You hold your breath as you fly through the blackness."
+
+    "A bump sends you bouncing into the air. You scream. And scream."
+    "When is it going to end?"
+    
+    show you scared with dissolve
+    
+    y "On no! Could this be the Doom Slide?"
+
+    show bg doomend2 with dissolve
+
+    "You hear screams echo in the darkness. You twist around. But you don't see anyone."
+    "The ghostly screams grow louder - in front of you, next to you, behind you."
+
+    "Screaming and sliding. And sliding. Never stopping."
+
+    scene bg doomend with dissolve
+
+    "You gasp for breath. And then you hear it."
+
+    "A voice cuts through the blackness. Through the screams. A voice that cries,"
+    mys "Welcome to the rest of your life. Welcome to the Doom Slide!"
+
+    pause (1)
+
+    scene bg gameover with pixellate
+
+    window hide
+
+    pause (2)
+
+    $ gameover_choices = [
+        ("Back to Previous Choice", Jump("doomslidechoice")),
+        ("Start Over", Jump("start")),
+        ("Main Menu", MainMenu())
+    ]
+
+    call screen game_over_menu (gameover_choices)
+
+label doomlaugh:
+
+    "Haha"
+
+    return
+
+label doomdark:
+
+    show bg doomslide with fade
+
+    "You grab the sides of the slide and lower yourself down."
+
+    show bg doomspeed at shakeloop with dissolve
+
+    "The second you stir, the slide's floor tilts up beneath you and propels you forward."
+
+    show you scared at shakeloop, center with dissolve
+
+    "You shriek."
+
+    hide you with dissolve
+
+    "You raise your arms and scream louder. You slide faster and faster."
+    
+    show bg doomdark with dissolve
+    
+    "In total darkness. Darkness so black, you can't even see your own feet in front of you."
+    
+    show bg doomend with dissolve
+
+    "Your eyes dart frantically from side to side."
+
+    show bg doomfaces with dissolve
+
+    "Faces suddenly appear in the darkness in bright flashes of light. Faces of hideous monsters with deformed heads and oozing flesh."
+    "But you're moving too fast to focus on them."
+
+    show bg doomend with dissolve
+
+    "You slide and slide - until the faces stop flashing and you're covered in the thick, heavy blackness again."
+    "You scream as you round a sharp curve. Your head is spinning. You pick up speed."
+
+    "When will it end?"
+    "Then you hear the screams. Chilling screams that echo through the darkness."
+    
+    show you scared with dissolve
+    
+    "Oh no! You must have picked the Doom Slide!"
+
+    scene black
+
+    "Bump."
+
+    show bg reunited with fade
+
+    "A chute opens up. You land headfirst on soft grass."
+
+    show bg chuteblink with dissolve
+
+    "You blink several times. A long sigh escapes from your lips. It wasn't the Doom Slide after all."
+    "As you climb to your feet, you hear someone call your name. You glance up and shout for joy."
+
+    show bg reunited with dissolve
+
+    show brad normal with dissolve
+    show patty smile with dissolve
+    
+    "It's Brad! And Patty's there, too!"
+
+    "You tell them about your scary ride on the slide - about how you thought you'd slide forever."
+
+    show patty idea with dissolve
+
+    p "Cool! Let's all ride it this time."
+
+    show you shout with dissolve
+
+    y "No!"
+    y "This carnival is too weird. And dangerous. Something's not right."
+    y "We have to get out of here. Now!"
+
+    show brad smug with dissolve
+
+    b "Yeah. The faster, the better."
+
+    jump pattychoice
+
+label pattychoice:
+
+    show bg reunited with dissolve
+
+    p "I have an idea."
+    p "I spotted a back way out of here. But it's a little risky. We have to squeeze through a barbed-wire fence ..."
+    p "... and it's guarded by the carnival's security forces. But we should try!"
+
+    scene bg reunited with dissolve
+
+    menu:
+
+        "Are you going to listen to Patty?"
+
+        "Follow Patty":
+            jump followpatty
+
+        "Choose not to take the back way out":
+            jump rejectpatty
+
+label rejectpatty:
+
+    show bg
+
+    y ""
+
+    return
+
+label followpatty:
+
+    "Bruh"
 
     return

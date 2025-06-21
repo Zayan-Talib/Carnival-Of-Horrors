@@ -1,55 +1,48 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While processing the padding property of anonymous style:
-  File "renpy/common/00gamemenu.rpy", line 174, in script
-    $ ui.interact()
-  File "renpy/common/00gamemenu.rpy", line 174, in <module>
-    $ ui.interact()
-IndexError: tuple index out of range
+Compiling ATL code at game/script.rpy:316
+  File "game/script.rpy", line 1454, in script
+    show bg chuteblink
+  File "game/script.rpy", line 316, in <module>
+    black"
+NameError: name 'black' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "renpy/common/00gamemenu.rpy", line 174, in script
-    $ ui.interact()
-  File "H:\Programs\RenPy\renpy\ast.py", line 834, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "H:\Programs\RenPy\renpy\python.py", line 1187, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "renpy/common/00gamemenu.rpy", line 174, in <module>
-    $ ui.interact()
-  File "H:\Programs\RenPy\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "H:\Programs\RenPy\renpy\display\core.py", line 2218, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "H:\Programs\RenPy\renpy\display\core.py", line 2748, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "H:\Programs\RenPy\renpy\display\screen.py", line 485, in visit_all
-    self.child.visit_all(callback, seen=None)
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "H:\Programs\RenPy\renpy\display\displayable.py", line 424, in visit_all
-    for d in self.visit():
-  File "H:\Programs\RenPy\renpy\display\layout.py", line 1376, in visit
-    self.style._visit_window(rv.append)
-  File "style.pyx", line 541, in renpy.style.StyleCore._visit_window
-  File "style.pyx", line 528, in renpy.style.StyleCore._get_unoffset
-  File "style.pyx", line 493, in renpy.style.StyleCore._get
-  File "style.pyx", line 717, in renpy.style.build_style
-  File "style.pyx", line 714, in renpy.style.build_style
-  File "gen3-static/style_functions.pyx", line 1581, in style_functions.padding_property
-  File "include/style_common.pxi", line 33, in style_functions.index_1
-IndexError: tuple index out of range
+  File "game/script.rpy", line 1454, in script
+    show bg chuteblink
+  File "H:\Programs\RenPy\renpy\ast.py", line 1124, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "H:\Programs\RenPy\renpy\ast.py", line 1087, in show_imspec
+    renpy.config.show(name,
+  File "H:\Programs\RenPy\renpy\exports\displayexports.py", line 477, in show
+    if not base.find_target() and renpy.config.missing_show:
+  File "H:\Programs\RenPy\renpy\display\image.py", line 421, in find_target
+    self.target = target._duplicate(a)
+  File "H:\Programs\RenPy\renpy\display\transform.py", line 1194, in _duplicate
+    rv.take_execution_state(self)
+  File "H:\Programs\RenPy\renpy\atl.py", line 551, in take_execution_state
+    block = self.compile()
+  File "H:\Programs\RenPy\renpy\atl.py", line 723, in compile
+    block = self.atl.compile(self.context)
+  File "H:\Programs\RenPy\renpy\atl.py", line 925, in compile
+    statements = [ i.compile(ctx) for i in self.statements ]
+  File "H:\Programs\RenPy\renpy\atl.py", line 925, in <listcomp>
+    statements = [ i.compile(ctx) for i in self.statements ]
+  File "H:\Programs\RenPy\renpy\atl.py", line 1232, in compile
+    child = ctx.eval(expr)
+  File "H:\Programs\RenPy\renpy\atl.py", line 387, in eval
+    return renpy.python.py_eval(expr, locals=self.context)
+  File "H:\Programs\RenPy\renpy\python.py", line 1218, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "H:\Programs\RenPy\renpy\python.py", line 1211, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 316, in <module>
+    black"
+NameError: name 'black' is not defined
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.3.7.25031702
 Escape from the Carnival of Horrors 1.0
-Tue Jun 17 19:51:58 2025
+Sun Jun 22 01:28:04 2025

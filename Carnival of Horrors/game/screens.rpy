@@ -282,7 +282,6 @@ screen game_over_menu(choices):
                     xsize 500   # Fix width
                     text_xalign 0.5  # Center text inside the button
 
-
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
 ## the player has not explicitly hidden the interface.
 init python:
